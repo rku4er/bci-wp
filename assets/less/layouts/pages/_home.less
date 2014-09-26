@@ -1,0 +1,21 @@
+#columns{
+
+    @media (max-width: @screen-xs-max){
+        .column{
+            float: none !important;
+            width: auto !important;
+        }
+    }
+
+    @media (min-width: @screen-xs-min){
+        .column{
+            padding: 0 10px;
+        }
+    }
+
+    @media (min-width: @screen-lg-min){
+        .column{
+            text-align: justify;
+        }
+    }
+}

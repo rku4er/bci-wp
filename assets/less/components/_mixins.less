@@ -1,0 +1,53 @@
+.desaturate(){
+    filter: url("filters.svg#grayscale");
+    filter: gray;
+    -webkit-filter: grayscale(1);
+}
+.colorize(){
+    filter: none;
+    -webkit-filter: grayscale(0);
+}
+
+.gradient (@startColor: rgba(0,0,0,0.75), @endColor: rgba(0,0,0,0.25), @direction: vertical, @startColorStop: 0%, @endColorStop: 100%) {
+
+    .setGradientVars(@direction) when (@direction = vertical) {
+        @direct: top;
+        @directW3: to bottom;
+        @ieGradientType: 0;
+    }
+    .setGradientVars(@direction) when (@direction = horizontal) {
+        @direct: left;
+        @directW3: to right;
+        @ieGradientType: 1;
+    }
+
+    .setGradientVars(@direction) when (isunit(@direction, deg)) {
+        @direct: @direction;
+        @ieGradientType: 1;
+
+        .invertAngle(@direct) when (unit(@direct) < 0) {
+            @directW3: unit((180 + unit(@direct)), deg);
+        }
+
+        .invertAngle(@direct) when (unit(@direct) >= 0) {
+            @directW3: @direct;
+        }
+
+        .invertAngle(@direct);
+    }
+
+    .setGradientVars(@direction);
+
+    @ieStartColor: argb(@startColor);
+    @ieEndColor: argb(@endColor);
+
+    background: @startColor;
+    background: -moz-linear-gradient(@direct, @startColor @startColorStop, @endColor @endColorStop);
+    background: -webkit-linear-gradient(@direct, @startColor @startColorStop, @endColor  @endColorStop);
+    background: -ms-linear-gradient(@direct, @startColor @startColorStop, @endColor  @endColorStop);
+    background: -o-linear-gradient(@direct, @startColor @startColorStop, @endColor  @endColorStop);
+    background: -linear-gradient(@direct, @startColor @startColorStop, @endColor  @endColorStop);
+    background: linear-gradient(@directW3, @startColor @startColorStop, @endColor @endColorStop);
+    -ms-filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=%d)", @ieStartColor, @ieEndColor, @ieGradientType));
+}
+
