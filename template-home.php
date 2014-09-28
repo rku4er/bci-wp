@@ -12,7 +12,7 @@ Template Name: Homepage
 <?php endif; ?>
 
 <?php
-    $front_posts = get_field('posts_on_front_page', 'options');
+    $front_posts = function_exists('get_field') ? get_field('posts_on_front_page', 'options') : '';
     $args = array(
         'post_type' => 'post',
         'posts_per_page' => $front_posts ? $front_posts : 4

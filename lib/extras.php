@@ -53,8 +53,8 @@ add_action('pre_get_posts','search_filter');
  */
 function my_post_queries( $query ) {
 
-  $home_posts = get_field('posts_on_blog_page', 'options');
-  $category_posts = get_field('posts_on_category_page', 'options');
+  $home_posts = function_exists('get_field') ? get_field('posts_on_blog_page', 'options') : '';
+  $category_posts = function_exists('get_field') ? get_field('posts_on_category_page', 'options') : '';
 
   // do not alter the query on wp-admin pages and only alter it if it's the main query
   if (!is_admin() && $query->is_main_query()){
@@ -81,11 +81,13 @@ function socialicons_func($atts, $content = null) {
 
     $output = '';
 
-    if(have_rows('social_icons', 'options')){
+    $rows = function_exists('have_rows') ? have_rows('social_icons', 'options') : '';
+
+    if($rows){
 
         $output .= '<ul class="socialicons">';
 
-        while(have_rows('social_icons', 'options')){
+        while($rows){
 
           the_row();
 

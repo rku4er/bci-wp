@@ -23,12 +23,6 @@ var Roots = {
   common: {
     init: function() {
       // JavaScript to be fired on all pages
-      $('a[href="#header"]').click(function(){
-        $('html,body').animate({
-          scrollTop: 0
-        }, 500, 'easeInOutExpo');
-        return false;
-      });
     }
   },
   // Home page

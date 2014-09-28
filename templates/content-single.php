@@ -6,9 +6,12 @@
       <?php the_content(); ?>
     </div>
 
-    <?php if(get_field('newsletter', 'options')): ?>
+    <?php
+      $newsletter = function_exists('get_field') ? get_field('newsletter', 'options') : '';
+      if($newsletter): ?>
+
       <section class="newsletter">
-        <?php gravity_form(get_field('newsletter', 'options')->id, true, false, false, null, true); ?>
+        <?php gravity_form($newsletter->id, true, false, false, null, true); ?>
       </section>
     <?php endif; ?>
 
