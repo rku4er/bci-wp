@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   // Show elapsed time
   require('time-grunt')(grunt);
 
-  var rootPath = '/home/nblxtap/HTTPdocs/project/www/wp-content/themes/roots/';
+  var rootPath = '/home/nblxtap/HTTPdocs/bci-wp/www/wp-content/themes/roots/';
 
   var jsFileList = [
     'assets/vendor/bootstrap/js/transition.js',

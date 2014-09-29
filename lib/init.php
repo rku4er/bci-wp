@@ -10,7 +10,8 @@ function roots_setup() {
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus(array(
-    'primary_navigation' => __('Primary Navigation', 'roots')
+    'primary_navigation' => __('Primary Navigation', 'roots'),
+    'secondary_navigation' => __('Secondary Navigation', 'roots')
   ));
 
   // Add post thumbnails
@@ -50,15 +51,6 @@ function roots_widgets_init() {
   ));
 
   register_sidebar(array(
-    'name'          => __('Secondary', 'roots'),
-    'id'            => 'sidebar-secondary',
-    'before_widget' => '<section class="widget %1$s %2$s">',
-    'after_widget'  => '</section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-
-  register_sidebar(array(
     'name'          => __('Footer', 'roots'),
     'id'            => 'sidebar-footer',
     'before_widget' => '<section class="widget %1$s %2$s">',
@@ -76,15 +68,38 @@ add_action('widgets_init', 'roots_widgets_init');
 add_action( 'init', 'create_posttype' );
 
 function create_posttype() {
-  register_post_type( 'album',
+  register_post_type( 'case_study',
     array(
       'labels' => array(
-        'name' => __( 'Albums' ),
-        'singular_name' => __( 'Album' ),
-        'add_new' => __( 'Add New Album' ),
-        'add_new_item' => __( 'Add New Album' ),
+        'name' => __( 'Case Studies' ),
+        'singular_name' => __( 'Case Study' ),
+        'add_new' => __( 'Add Case Study' ),
+        'add_new_item' => __( 'Add New Case Study' ),
       ),
-      'rewrite' => array('slug' => 'archive-albums'),
+      'rewrite' => array('slug' => 'archive-case-studies'),
+      'public' => true,
+      'hierarchical' => true,
+      'has_archive' => true,
+      'menu_position' => 5,
+      'supports' => array(
+          'title',
+          'editor',
+          'excerpt',
+          'thumbnail'
+      ),
+      'can_export' => true
+    )
+  );
+
+  register_post_type( 'job_opportunity',
+    array(
+      'labels' => array(
+        'name' => __( 'Job Opportunities' ),
+        'singular_name' => __( 'Job Opportunity' ),
+        'add_new' => __( 'Add Job Opportunity' ),
+        'add_new_item' => __( 'Add New Job Opportunity' ),
+      ),
+      'rewrite' => array('slug' => 'archive-job-opportunities'),
       'public' => true,
       'hierarchical' => true,
       'has_archive' => true,

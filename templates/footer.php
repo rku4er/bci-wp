@@ -8,10 +8,6 @@
     </div>
   </div>
 
-  <section class="copyright">
-      <div class="container">&copy; Copyright <?php the_date('Y') ?>, McLeod Creative</div>
-  </section>
-
 </footer>
 
 <?php wp_footer(); ?>

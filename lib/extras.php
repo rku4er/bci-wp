@@ -74,32 +74,22 @@ function my_post_queries( $query ) {
 add_action( 'pre_get_posts', 'my_post_queries' );
 
 /**
- * Social Icons shortcode
+ * Copyright shortcode
  */
-function socialicons_func($atts, $content = null) {
+function copyright_func($atts, $content = null) {
     $atts = shortcode_atts(array(), $atts);
 
     $output = '';
 
-    $rows = function_exists('have_rows') ? have_rows('social_icons', 'options') : '';
+    $copyright = function_exists('get_field') ? get_field('copyright', 'options') : '';
 
-    if($rows){
-
-        $output .= '<ul class="socialicons">';
-
-        while($rows){
-
-          the_row();
-
-          $output .= '<li><a href="'. get_sub_field('url') .'" class="'. get_sub_field('slug') .'-dark" target="_blank">'. get_sub_field('name') .'</a></li>';
-
-        }
-
-        $output .= '</ul>';
-
+    if($copyright){
+      $output .= 'Copyright &copy; ' . date('Y') . ' ' . $copyright;
     }
 
     return $output;
 }
 
-add_shortcode('socialicons', 'socialicons_func');
+add_shortcode('copyright', 'copyright_func');
+
+
