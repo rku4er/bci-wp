@@ -5,21 +5,21 @@ module.exports = function(grunt) {
   // Show elapsed time
   require('time-grunt')(grunt);
 
-  var rootPath = '/home/nblxtap/HTTPdocs/bci-wp/www/wp-content/themes/roots/';
+  var rootPath = '/home/nblxtap/HTTPdocs/project/www/wp-content/themes/roots/';
 
   var jsFileList = [
     'assets/vendor/bootstrap/js/transition.js',
-    //'assets/vendor/bootstrap/js/alert.js',
-    //'assets/vendor/bootstrap/js/button.js',
-    //'assets/vendor/bootstrap/js/carousel.js',
+    'assets/vendor/bootstrap/js/alert.js',
+    'assets/vendor/bootstrap/js/button.js',
+    'assets/vendor/bootstrap/js/carousel.js',
     'assets/vendor/bootstrap/js/collapse.js',
     'assets/vendor/bootstrap/js/dropdown.js',
-    //'assets/vendor/bootstrap/js/modal.js',
-    //'assets/vendor/bootstrap/js/tooltip.js',
-    //'assets/vendor/bootstrap/js/popover.js',
-    //'assets/vendor/bootstrap/js/scrollspy.js',
-    //'assets/vendor/bootstrap/js/tab.js',
-    //'assets/vendor/bootstrap/js/affix.js',
+    'assets/vendor/bootstrap/js/modal.js',
+    'assets/vendor/bootstrap/js/tooltip.js',
+    'assets/vendor/bootstrap/js/popover.js',
+    'assets/vendor/bootstrap/js/scrollspy.js',
+    'assets/vendor/bootstrap/js/tab.js',
+    'assets/vendor/bootstrap/js/affix.js',
     'assets/vendor/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js',
     'assets/vendor/jquery.easing/jquery.easing.1.3.js',
     //'assets/vendor/jquery-mousewheel/jquery.mousewheel.js',
