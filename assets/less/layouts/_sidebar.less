@@ -1,1 +1,19 @@
-.sidebar{}
+.sidebar{
+
+    .widget{
+        border: 0px solid #F00;
+
+        &+.widget{
+            margin-top: 10px;
+        }
+
+        >h3{
+            margin: 0 0 11px;
+            color: @brand-primary;
+            font-size: 22px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+    }
+
+}
