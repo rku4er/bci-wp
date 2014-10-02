@@ -19,3 +19,126 @@
         }
     }
 }
+
+#home-slider{
+    margin-bottom: 25px;
+
+    .carousel-inner{
+        .item{
+            img{
+                width: 100%;
+                height: auto;
+            }
+
+            .bar{
+                margin-top: 10px;
+                background-color: @brand-primary;
+                padding: 10px 20px;
+                position: relative;
+                color: #fff;
+                overflow: hidden;
+
+                .more{
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    font-family: 'Dosis';
+                    color: #FFF;
+                    background-color: @brand-secondary;
+                    padding: 10px 15px;
+                    display: inline-block;
+                    text-decoration: none;
+                    float: right;
+                    transition: background-color .2s ease-in;
+                    margin-left: 15px;
+
+                    &:hover,
+                    &:focus{
+                        background-color: darken(@brand-primary, 10%);
+                    }
+
+                    &:before{
+                        &:extend(.pseudo_element);
+                    }
+
+                    @media (min-width: @screen-md-min){
+                        padding: 0 35px 0 90px;
+                        float: none;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        overflow: hidden;
+                        z-index: 2;
+                        margin-left: 0;
+
+                        &:before{
+                            .square(200px);
+                            .rotate(45deg);
+                            left: -205px;
+                            top: 50%;
+                            margin-top: -100px;
+                            background-color: @brand-primary;
+                        }
+
+                        .like-table{
+                            display: table;
+                            width: 100%;
+                            height: 100%;
+                        }
+
+                        .like-table-cell{
+                            display: table-cell;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+
+                .title{
+                    margin: 0;
+                    color: #fff;
+                    font-size: 20px;
+                    font-family: 'Maven Pro';
+                    font-weight: 400;
+                }
+
+                .caption{
+                    margin: 0;
+                    font-family: 'Dosis';
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
+
+#home-links{
+    margin-bottom: 25px;
+
+    &.btn-group-justified{
+        table-layout: auto;
+    }
+
+    >.btn-group{
+        width: auto;
+        vertical-align: top;
+    }
+
+    p{
+        margin: 0;
+        font-size: 18px;
+        font-family: 'Dosis';
+        font-weight: 400;
+    }
+    h3{
+        margin: 0;
+        font-size: 22px;
+        font-family: 'Maven Pro';
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    a{
+        text-decoration: none;
+        transition: color .2s ease;
+    }
+}

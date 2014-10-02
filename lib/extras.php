@@ -131,7 +131,7 @@ function slider_func($atts, $content = null) {
         $output .= '<div class="bar">';
         $output .= $title;
         $output .= $caption;
-        $output .= '<a href="'. $url .'" '. $target .'>' . __('Read More', 'roots') . '</a>';
+        $output .= '<a href="'. $url .'" '. $target .' class="more"><span class="like-table"><span class="like-table-cell">' . __('Read More', 'roots') . '</span></span></a>';
         $output .= '</div>';
         $output .= '</div>'; // item end
     }
@@ -167,8 +167,8 @@ function links_func($atts, $content = null) {
 
         the_row();
         $url = get_sub_field('url');
-        $prefix = get_sub_field('prefix') .'</h2>';
-        $title = get_sub_field('title') .'</h2>';
+        $prefix = get_sub_field('prefix');
+        $title = get_sub_field('title');
 
         $output .= '<div class="btn-group">'; // item begin
         $output .= '<p>'. $prefix .'</p>';
@@ -184,3 +184,57 @@ function links_func($atts, $content = null) {
 }
 
 add_shortcode('links', 'links_func');
+
+/**
+ * Demos shortcode
+ */
+function demos_func($atts, $content = null) {
+  $atts = shortcode_atts(array(
+    'items_in_row' => '3'
+  ), $atts);
+
+  $num = 12 / $atts['items_in_row'];
+
+  $output = '';
+
+  $demos = function_exists('get_field') ? get_field('demos') : '';
+
+  if($demos){
+
+    $output .= '<section id="demos" class="demos">';
+
+    $i = 0;
+
+    while(have_rows('demos')){
+
+        the_row();
+        $i++;
+        $url = get_sub_field('url');
+        $full_src = wp_get_attachment_image_src(get_sub_field('image'), 'full', false);
+        $thumb_src = wp_get_attachment_image_src(get_sub_field('image'), 'demos', false);
+        $lightbox = get_sub_field('lightbox') ? 'rel="lightbox[demos]"' : '';
+        $href = $url ? $url : $full_src[0];
+
+        if($i == 1 || ($i-1)%$atts['items_in_row'] == 0){
+          $output .= '<div class="row">';
+        }
+
+        $output .= '<div class="col-sm-'. $num .'">';
+        $output .= '<h3 style="background-image: url('. $thumb_src[0] .')"><a href="'. $href .'"'. $lightbox .'><img src="'. $thumb_src[0] .'" alt=""></a></h3>';
+        $output .= '</div>';
+
+        if($i == count(get_field('demos')) || $i%$atts['items_in_row'] == 0){
+          $output .= '</div>';
+        }
+    }
+
+    $output .= '</section>';
+
+  }
+
+  FB::log($output);
+
+  return $output;
+}
+
+add_shortcode('demos', 'demos_func');

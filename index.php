@@ -1,3 +1,7 @@
+<div class="breadcrumbs">
+    <?php if(function_exists('bcn_display')) bcn_display(); ?>
+</div>
+
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no results were found.', 'roots'); ?>

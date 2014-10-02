@@ -1,0 +1,26 @@
+.demos{
+    .row{
+        &:first-child{
+            h3{
+                @media (min-width: @screen-sm-min){
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    h3{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        margin: 22px 0 0;
+        height: 198px;
+        overflow: hidden;
+    }
+    img{
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        opacity: 0;
+    }
+}

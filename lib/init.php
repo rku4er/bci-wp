@@ -20,6 +20,7 @@ function roots_setup() {
   // http://codex.wordpress.org/Function_Reference/add_image_size
   add_theme_support('post-thumbnails');
   add_image_size( 'home-slider', 960, 356, true );
+  add_image_size( 'demos', 305, 168, true );
 
   // Add post formats
   // http://codex.wordpress.org/Post_Formats

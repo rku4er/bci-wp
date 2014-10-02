@@ -9,6 +9,6 @@
     <?php the_excerpt(); ?>
   </div>
   <footer>
-      <?php get_template_part('templates/entry-meta'); ?>
+      <?php //get_template_part('templates/entry-meta'); ?>
   </footer>
 </article>
