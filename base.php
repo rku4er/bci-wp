@@ -15,6 +15,11 @@
   <div class="wrap container" role="document">
     <div class="content row">
       <main class="main <?php echo roots_main_class(); ?>" role="main">
+        <?php if(!is_front_page()): ?>
+          <div class="breadcrumbs">
+            <?php if(function_exists('bcn_display')) bcn_display(); ?>
+          </div>
+        <?php endif; ?>
         <?php include roots_template_path(); ?>
       </main><!-- /.main -->
       <?php if (roots_display_sidebar()) : ?>
@@ -31,6 +36,8 @@
     <!-- Livereload page -->
     <script src="//localhost:35729/livereload.js"></script>
   <?php endif; ?>
+
+  <link rel="stylesheet" type="text/css" media="all" href="<?php echo get_template_directory_uri(); ?>/assets/css/custom.css">
 
 </body>
 </html>

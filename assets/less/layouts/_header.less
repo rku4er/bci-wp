@@ -266,7 +266,6 @@
     .secondary-nav{
         background-color: #959698;
         position: relative;
-        overflow: hidden;
         display: table-cell;
         vertical-align: middle;
         width: 50%;
@@ -285,12 +284,12 @@
             margin-top: 28px;
 
             &:after{
-                top: 0;
-                left: 0;
+                bottom: 0;
+                right: 100%;
                 width: 20px;
                 height: 200%;
                 background-color: @body-bg;
-                .transform-origin(100% 0);
+                .transform-origin(100% 100%);
                 .rotate(20deg);
             }
         }
@@ -308,10 +307,11 @@
             font-size: 15px;
 
             >li{
-                display: inline;
+                display: inline-block;
                 float: none;
 
-                &.active{
+                &.active,
+                &.open{
                     >a{
                         background-color: transparent;
                         color: @brand-primary;
@@ -327,6 +327,7 @@
 
                     &:hover,
                     &:focus{
+                        background-color: transparent;
                         color: @brand-primary;
                     }
                 }

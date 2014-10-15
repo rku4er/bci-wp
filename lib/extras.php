@@ -41,7 +41,7 @@ add_filter('roots_wrap_base', 'roots_wrap_base_cpts');
 function search_filter($query) {
   if ( !is_admin() && $query->is_main_query() ) {
     if ($query->is_search) {
-      $query->set('post_type', 'post');
+      $query->set('post_type', array('page', 'post', 'case_study', 'job_opportunity'));
     }
   }
 }
@@ -232,9 +232,163 @@ function demos_func($atts, $content = null) {
 
   }
 
-  FB::log($output);
-
   return $output;
 }
 
 add_shortcode('demos', 'demos_func');
+
+/**
+ * About images shortcode
+ */
+function about_images_func($atts, $content = null) {
+  $atts = shortcode_atts(array(
+    'items_in_row' => '4'
+  ), $atts);
+
+  $num = 12 / $atts['items_in_row'];
+
+  $output = '';
+
+  $about_images = function_exists('get_field') ? get_field('about_images') : '';
+
+  if($about_images){
+
+    $output .= '<section id="about_images" class="demos">';
+
+    $i = 0;
+
+    while(have_rows('about_images')){
+
+        the_row();
+        $i++;
+        $full_src = wp_get_attachment_image_src(get_sub_field('image'), 'full', false);
+        $thumb_src = wp_get_attachment_image_src(get_sub_field('image'), 'demos', false);
+        $lightbox = get_sub_field('lightbox') ? 'rel="lightbox[about_images]"' : '';
+        $href = $full_src[0];
+
+        if($i == 1 || ($i-1)%$atts['items_in_row'] == 0){
+          $output .= '<div class="row">';
+        }
+
+        $output .= '<div class="col-sm-'. $num .'">';
+        $output .= '<h3 style="background-image: url('. $thumb_src[0] .')"><a href="'. $href .'"'. $lightbox .'><img src="'. $thumb_src[0] .'" alt=""></a></h3>';
+        $output .= '</div>';
+
+        if($i == count(get_field('about_images')) || $i%$atts['items_in_row'] == 0){
+          $output .= '</div>';
+        }
+    }
+
+    $output .= '</section>';
+
+  }
+
+  return $output;
+}
+
+add_shortcode('images', 'about_images_func');
+
+// Return Custom Taxonomy terms
+add_shortcode( 'terms', 'list_terms_custom_taxonomy' );
+function list_terms_custom_taxonomy( $atts, $content = null ) {
+  $atts = shortcode_atts(array(
+    'taxonomy' => ''
+  ), $atts);
+
+  $output = '';
+
+  $args = array(
+    'taxonomy' => $atts['taxonomy'],
+    'title_li' => '',
+    'echo' => false
+  );
+
+  $output .= '<ul>';
+  $output .= wp_list_categories($args);
+  $output .= '</ul>';
+
+  return $output;
+}
+
+// List of Custom Posts shortcode
+add_shortcode( 'posts', 'list_posts_custom_post_type' );
+function list_posts_custom_post_type( $atts, $content = null ) {
+  $atts = shortcode_atts(array(
+    'type' => ''
+  ), $atts);
+
+  $output = '';
+
+  $args = array(
+    'posts_per_page'   => -1,
+    'post_type'        => $atts['type'],
+    'post_status'      => 'publish',
+  );
+
+  $posts = get_posts($args);
+
+  $output .= '<ul>';
+
+  foreach($posts as $custom_post){
+    $output .= '<li><a href="'. get_post_permalink($custom_post->ID) .'">'. $custom_post->post_title .'</a></li>';
+  }
+
+  $output .= '</ul>';
+
+  return $output;
+}
+
+// Bottom Info Shortcode
+add_shortcode( 'bottom_info', 'bottom_info_func' );
+function bottom_info_func( $atts, $content = null ) {
+  $atts = shortcode_atts(array(), $atts);
+
+  $output = '';
+
+  $showInfo = function_exists('get_field') ? get_field('show_bottom_info') : '';
+
+  if($showInfo){
+    $left_info = get_field('info_left');
+    $right_info = get_field('info_right');
+
+    $output .= '<div class="row">';
+
+    $output .= '<div class="col-sm-4">'. $left_info .'</div>';
+
+    $output .= '<div class="col-sm-8">'. $right_info .'</div>';
+
+    $output .= '</div>';
+  }
+
+  return $output;
+}
+
+add_shortcode('container_open', 'container_open_func');
+function container_open_func($atts, $content = null) {
+  return '<div class="container">';
+}
+
+add_shortcode('container_close', 'container_close_func');
+function container_close_func($atts, $content = null) {
+  return '</div>';
+}
+
+add_shortcode('row_open', 'row_open_func');
+function row_open_func($atts, $content = null) {
+  return '<div class="row">';
+}
+
+add_shortcode('row_close', 'row_close_func');
+function row_close_func($atts, $content = null) {
+  return '</div>';
+}
+
+add_shortcode('column_open', 'column_open_func');
+function column_open_func($atts, $content = null) {
+  return '<div class="col-md-6">';
+}
+
+add_shortcode('column_close', 'column_close_func');
+function column_close_func($atts, $content = null) {
+  return '</div>';
+}

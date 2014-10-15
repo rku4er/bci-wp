@@ -121,6 +121,15 @@
     >.btn-group{
         width: auto;
         vertical-align: top;
+
+        @media (max-width: @screen-xs-max){
+            display: block;
+            text-align: center;
+
+            &+.btn-group{
+                margin-top: 11px;
+            }
+        }
     }
 
     p{
