@@ -392,3 +392,20 @@ add_shortcode('column_close', 'column_close_func');
 function column_close_func($atts, $content = null) {
   return '</div>';
 }
+
+// [login_links]
+add_shortcode( 'login_links', 'login_links_func' );
+function login_links_func( $atts, $content = null ) {
+  $atts = shortcode_atts(array(), $atts);
+
+  $output = '';
+
+  global $post;
+  $post_slug = $post->post_name;
+
+  if ( !is_user_logged_in() ) {
+    $output .= '<a href="'. get_bloginfo('url') .'/wp-login.php?redirect_to=/'. $post_slug .'/">Login</a> | <a href="'. get_bloginfo('url') .'/wp-login.php?action=register&redirect_to=/'. $post_slug .'/">Register</a>';
+  }
+
+  return $output;
+}
