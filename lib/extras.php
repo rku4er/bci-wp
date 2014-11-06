@@ -4,9 +4,14 @@
  * Clean up the_excerpt()
  */
 function roots_excerpt_more($more) {
-  return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'roots') . '</a>';
+  return ' &hellip; <a href="' . get_permalink() . '">' . '</a>';
 }
 add_filter('excerpt_more', 'roots_excerpt_more');
+
+function custom_excerpt_length( $length ) {
+	return 40;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 /**
  * Manage output of wp_title()
@@ -212,6 +217,7 @@ function demos_func($atts, $content = null) {
         $url = get_sub_field('url');
         $full_src = wp_get_attachment_image_src(get_sub_field('image'), 'full', false);
         $thumb_src = wp_get_attachment_image_src(get_sub_field('image'), 'demos', false);
+		$caption = get_sub_field('caption');
         $lightbox = get_sub_field('lightbox') ? 'rel="lightbox[demos]"' : '';
         $href = $url ? $url : $full_src[0];
 
@@ -219,9 +225,9 @@ function demos_func($atts, $content = null) {
           $output .= '<div class="row">';
         }
 
-        $output .= '<div class="col-sm-'. $num .'">';
-        $output .= '<h3 style="background-image: url('. $thumb_src[0] .')"><a href="'. $href .'"'. $lightbox .'><img src="'. $thumb_src[0] .'" alt=""></a></h3>';
-        $output .= '</div>';
+        $output .= '<div class="imgcaption col-sm-'. $num .'">';
+        $output .= '<h3 style="background-image: url('. $thumb_src[0] .')"><a target="_blank" href="'. $href .'"'. $lightbox .'><img src="'. $thumb_src[0] .'" alt=""></a></h3>';
+        $output .= '<br>'. $caption .'</div>';
 
         if($i == count(get_field('demos')) || $i%$atts['items_in_row'] == 0){
           $output .= '</div>';
@@ -264,7 +270,7 @@ function about_images_func($atts, $content = null) {
         $full_src = wp_get_attachment_image_src(get_sub_field('image'), 'full', false);
         $thumb_src = wp_get_attachment_image_src(get_sub_field('image'), 'demos', false);
         $lightbox = get_sub_field('lightbox') ? 'rel="lightbox[about_images]"' : '';
-        $href = $full_src[0];
+        $href = get_sub_field('url');
 
         if($i == 1 || ($i-1)%$atts['items_in_row'] == 0){
           $output .= '<div class="row">';
@@ -409,3 +415,26 @@ function login_links_func( $atts, $content = null ) {
 
   return $output;
 }
+
+function my_login_logo() { ?>
+    <style type="text/css">
+        body.login div#login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/img/bg/logo.png);
+			background-size:313px 112px;
+            padding-bottom: 30px;
+        }
+		.login h1 a {
+			height: 112px !important;
+			width: 313px !important;
+		}
+		.wp-core-ui .button-primary {
+			background-color: #9ccc3c;
+			border-color: #9ccc3c;
+		}
+		.wp-core-ui .button-primary.focus, .wp-core-ui .button-primary.hover, .wp-core-ui .button-primary:focus, .wp-core-ui .button-primary:hover {
+			background-color: #959698;
+			border-color: #959698;
+		}
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );

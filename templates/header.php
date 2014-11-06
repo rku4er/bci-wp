@@ -17,7 +17,7 @@
           ?>
         </nav>
 
-        <a href="#" class="custom-link"><span>Private Exchange Support Services</span></a>
+        <a href="<?php echo site_url(); ?>/exchange-support-services" class="custom-link"><span>Exchange Support Services</span></a>
       </section>
 
       <section class="section-left">
@@ -27,7 +27,7 @@
           <strong class="logo"><?php echo $logo; ?></strong>
         <?php endif; ?>
 
-        <p class="tagline"><?php echo get_bloginfo('description'); ?></p>
+        <p class="tagline"><img src="<?php the_field('tagline_image', 'option'); ?>" alt="<?php echo get_bloginfo('description'); ?>" width="295" height="19" /></p>
       </section>
 
     </div>

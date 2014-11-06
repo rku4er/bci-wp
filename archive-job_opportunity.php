@@ -5,10 +5,11 @@
   <?php get_search_form(); ?>
 <?php endif; ?>
 
-<div class="row" id="sameheight">
-	<?php while (have_posts()) : the_post(); ?>
-    	<?php get_template_part('templates/content', 'case_study'); ?>
-	<?php endwhile; ?>
+<div class="columns clearfix">
+  <?php the_field('job_opportunities', 'option'); ?>
+  <?php while (have_posts()) : the_post(); ?>
+    <?php get_template_part('templates/content', 'job_opportunity'); ?>
+  <?php endwhile; ?>
 </div>
 
 <?php if ($wp_query->max_num_pages > 1) : ?>
